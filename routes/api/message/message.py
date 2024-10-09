@@ -1,7 +1,6 @@
 import base64
 from flash_flask import route, Utils
 from flash_flask.db import MySQL
-from flask import request
 from argon2 import PasswordHasher
 
 from src.utils import new_public_id
