@@ -23,20 +23,20 @@ def GET():
         }
     
     try:
-        row = MySQL.fetch_one("SELECT * FROM files WHERE public_id = %s", (public_id,))
+        file = MySQL.fetch_one("SELECT * FROM files WHERE public_id = %s", (public_id,))
     except Exception as e:
         return {
             "error": str(e)
         }
         
-    if not row:
+    if not file:
         return {
             "error": Errors.NOT_FOUND()
         }
     
     return {
-        "key": MySQL.get_row_col(row, "files", "key"),
-        "filename": MySQL.get_row_col(row, "files", "filename")
+        "key": file.get("key"),
+        "filename": file.get("filename")
     }
 
 def POST():    

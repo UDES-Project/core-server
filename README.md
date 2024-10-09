@@ -1,2 +1,2 @@
 # core-server
-The Core of UMES
+The Core of UDES

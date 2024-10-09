@@ -4,5 +4,5 @@ from flash_flask import route
 @route()
 def endpoint():
     return {
-        "server_name": "UMES Core Server"
+        "server_name": "UDES Core Server"
     }
