@@ -12,7 +12,7 @@ app = App(__name__)
 
 CORS(app.flask)
 
-MySQL.init(os.getenv("MYSQL_HOST"), os.getenv("MYSQL_PORT"), os.getenv("MYSQL_USER"), os.getenv("MYSQL_PASSWORD"), "umes")
+MySQL.init(os.getenv("MYSQL_HOST"), os.getenv("MYSQL_PORT"), os.getenv("MYSQL_USER"), os.getenv("MYSQL_PASSWORD"), os.getenv("MYSQL_DATABASE"))
 
 if __name__ == "__main__":
     app.run(debug=True)
