@@ -1,4 +1,4 @@
-flash-flask-python==1.0.2
+flash-flask-python[mysql]==1.0.3
 mysql-connector-python==9.0.0
 Flask-Cors==5.0.0 
 python-dotenv==1.0.1 
