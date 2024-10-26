@@ -3,3 +3,4 @@ mysql-connector-python==9.0.0
 Flask-Cors==5.0.0 
 python-dotenv==1.0.1 
 argon2-cffi==23.1.0 
+gunicorn==23.0.0 
