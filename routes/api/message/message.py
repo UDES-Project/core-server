@@ -1,7 +1,7 @@
 import base64
 from flash_flask import route, Utils
 from flash_flask.db import MySQL
-from argon2 import PasswordHasher
+import hashlib
 
 from src.utils import new_public_id
 from src.errors import Errors
@@ -50,10 +50,8 @@ def read():
         }
     
     if message.get("secret"):
-        ph = PasswordHasher()
-        try:
-            ph.verify(message.get("secret"), secret)
-        except:
+        hashed_secret = hashlib.sha256(secret.encode()).hexdigest()
+        if hashed_secret != message.get("secret"):
             return {
                 "error": Errors.INVALID_SECRET()
             }
@@ -77,9 +75,8 @@ def create():
     
     try:
         if secret:
-            ph = PasswordHasher()
-            hash_secret = ph.hash(secret)
-            MySQL.insert_into("messages", ("public_id", "content", "secret"), (public_id, content, hash_secret))
+            hashed_secret = hashlib.sha256(secret.encode()).hexdigest()
+            MySQL.insert_into("messages", ("public_id", "content", "secret"), (public_id, content, hashed_secret))
         else:
             MySQL.insert_into("messages", ("public_id", "content"), (public_id, content))
     except Exception as e:
