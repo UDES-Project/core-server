@@ -3,7 +3,7 @@ from flash_flask import route, Utils
 from flash_flask.db import MySQL
 import hashlib
 
-from src.utils import new_public_id
+from src.utils import exception_to_json, new_public_id
 from src.errors import Errors
 
 @route(["POST"])
@@ -12,9 +12,7 @@ def endpoint():
     try:
         action = Utils.get_json_values(["action"])[0]
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        return exception_to_json(e)
     
     if action == "create":
         return create()
@@ -28,9 +26,7 @@ def read():
         public_id = Utils.get_json_values(["public_id"])[0]
         secret = Utils.get_optional_json_values(["secret"], 0).get("secret")
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        return exception_to_json(e, str(e) == "Invalid request data")
     
     if not public_id:
         return {
@@ -40,9 +36,7 @@ def read():
     try:
         message = MySQL.fetch_one("SELECT * FROM messages WHERE public_id = %s", (public_id,))
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        return exception_to_json(e)
         
     if not message:
         return {
@@ -67,9 +61,7 @@ def create():
         
         secret = Utils.get_optional_json_values(["secret"], 0).get("secret")
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        return exception_to_json(e)
     
     public_id = new_public_id()
     
@@ -80,9 +72,7 @@ def create():
         else:
             MySQL.insert_into("messages", ("public_id", "content"), (public_id, content))
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        return exception_to_json(e)
     
     return {
         "public_id": public_id

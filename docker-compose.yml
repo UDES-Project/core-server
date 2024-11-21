@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  flask-app:
+    build: .
+    volumes:
+      - ./logs:/app/logs
+    network_mode: "host"
+    restart: always

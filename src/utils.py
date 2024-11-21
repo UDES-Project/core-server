@@ -1,3 +1,4 @@
+import traceback
 import uuid
 
 from src.errors import Errors
@@ -28,3 +29,9 @@ def get_url_args(keys):
         
         values.append(value)
     return values
+
+def exception_to_json(e, print_traceback = True):
+    if print_traceback: traceback.print_exc()
+    return {
+        "error": str(e)
+    }
