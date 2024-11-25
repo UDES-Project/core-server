@@ -1,8 +1,6 @@
 from flash_flask import route
+import json
 
-# Just for tests, will be updated later
 @route()
 def endpoint():
-    return {
-        "server_name": "UDES Core Server"
-    }
+    return json.loads(open("info.json", "r").read())
