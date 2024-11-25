@@ -1,4 +1,4 @@
 {
     "server_name": "UDES Core Server",
-    "messsage_lifetime": "7d"
+    "messsage_expiration": "7d"
 }
