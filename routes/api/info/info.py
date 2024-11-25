@@ -3,4 +3,4 @@ import json
 
 @route()
 def endpoint():
-    return json.loads(open("info.json", "r").read())
+    return json.loads(open("public.json", "r").read())
